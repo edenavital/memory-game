@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoutes } from "./pages/ProtectedRoutes/ProtectedRoutes";
 import { LevelScreen } from "./pages/LevelScreen";
-import { ROUTES } from "./consts";
+import { FRONTEND_ROUTES } from "./consts";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -29,11 +29,11 @@ root.render(
         <Layout>
           <BrowserRouter>
             <Routes>
-              <Route path={ROUTES.ROOT} element={<LoginScreen />} />
+              <Route path={FRONTEND_ROUTES.ROOT} element={<LoginScreen />} />
               <Route element={<ProtectedRoutes />}>
-                <Route path={ROUTES.MENU} element={<MenuScreen />} />
-                <Route path={ROUTES.LEVEL} element={<LevelScreen />} />
-                <Route path={ROUTES.GAME} element={<GameScreen />} />
+                <Route path={FRONTEND_ROUTES.MENU} element={<MenuScreen />} />
+                <Route path={FRONTEND_ROUTES.LEVEL} element={<LevelScreen />} />
+                <Route path={FRONTEND_ROUTES.GAME} element={<GameScreen />} />
               </Route>
             </Routes>
           </BrowserRouter>

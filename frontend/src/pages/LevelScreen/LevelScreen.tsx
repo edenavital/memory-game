@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 import { globalLevel } from "../../redux/features/global";
 import { useAppDispatch } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../consts";
+import { FRONTEND_ROUTES } from "../../consts";
 import { Level } from "../../redux/features/global.types";
 
 export const LevelScreen: FC = () => {
@@ -14,7 +14,7 @@ export const LevelScreen: FC = () => {
 
   const onClickLevel = (level: Level) => {
     dispatch(globalLevel(level));
-    navigate(ROUTES.GAME);
+    navigate(FRONTEND_ROUTES.GAME);
   };
 
   return (

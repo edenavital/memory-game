@@ -17,6 +17,7 @@
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-card-flip": "^1.1.5",
     "react-dom": "^18.2.0",

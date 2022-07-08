@@ -7,9 +7,7 @@ import { ButtonTypes } from "../../components/Button";
 import { globalNickname } from "../../redux/features/global";
 import { useAppDispatch } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../consts";
-// import { Card } from "../../components/Card";
-// import { TextField } from "../../components/TextField";
+import { FRONTEND_ROUTES } from "../../consts";
 
 export const LoginScreen: FC<ILoginScreen> = () => {
   const navigate = useNavigate();
@@ -23,7 +21,7 @@ export const LoginScreen: FC<ILoginScreen> = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(globalNickname(nickname));
-    navigate(ROUTES.MENU);
+    navigate(FRONTEND_ROUTES.MENU);
   };
 
   return (

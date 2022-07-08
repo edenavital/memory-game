@@ -7,6 +7,7 @@ import { IGame } from "../models/game";
 // import { StatusCode } from 'http-status-codes';
 // import { AppError } from '../utils/AppError/AppError';
 import { GetSingleGameParams } from "../models/game/game.types";
+import { Level, StartGame } from "../features/Game/StartGame";
 
 // Request<{}, {}, {}, IGame>
 
@@ -28,7 +29,11 @@ const gameController = {
     }
   ),
   startGame: expressAsyncWrapper(async (req: Request, res: Response) => {
-    console.log("bla");
+    const { level } = req.body;
+    const gameData = new StartGame(level as Level);
+    const cards = await gameData.generateGame();
+
+    return successResponse({ data: cards }, res);
   }),
 };
 

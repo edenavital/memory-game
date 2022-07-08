@@ -1,7 +1,6 @@
 import { Navigate, Outlet } from "react-router";
 import { NavigateBack } from "../../components/NavigateBack";
-import { Wrapper } from "../../components/Wrapper";
-import { ROUTES } from "../../consts";
+import { FRONTEND_ROUTES } from "../../consts";
 import { useAppSelector } from "../../redux/hooks";
 
 const useAuth = () => {
@@ -11,7 +10,7 @@ const useAuth = () => {
 
 export const ProtectedRoutes = () => {
   const isAuth = useAuth();
-  return isAuth ? renderPage() : <Navigate to={ROUTES.ROOT} />;
+  return isAuth ? renderPage() : <Navigate to={FRONTEND_ROUTES.ROOT} />;
 };
 
 const renderPage = () => {

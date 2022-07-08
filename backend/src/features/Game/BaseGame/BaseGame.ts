@@ -1,7 +1,9 @@
-import { Level } from './BaseGame.types';
+import { Level } from "./BaseGame.types";
 
 export class BaseGame {
-  private level: Level;
+  private _level: Level;
 
-  constructor() {}
+  constructor(level: Level) {
+    this._level = level;
+  }
 }

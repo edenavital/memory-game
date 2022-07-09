@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import * as Styled from "./GameScreen.styles";
 import { Wrapper } from "../../components/Wrapper";
-import { Typography } from "../../components/Typography";
 import { Button } from "../../components/Button";
 // import { useAppDispatch } from "../../redux/hooks";
 // import { useNavigate } from "react-router-dom";
@@ -9,12 +8,16 @@ import { Card, ICard, CardsObject } from "../../components/Card";
 import { httpClient } from "../../api/axios";
 import { BASE_ROUTES, GAME_ROUTES } from "../../consts";
 import { useAppSelector } from "../../redux/hooks";
+import { GameStats } from "../../components/GameStats";
 
 export const GameScreen: FC = () => {
   const [cards, setCards] = useState<CardsObject | null>(null);
   const level = useAppSelector((state) => state.global.level);
   const [disableClicks, setDisableClicks] = useState(false);
   const [selectedCards, setSelectedCards] = useState<CardsObject>({});
+  const [moves, setMoves] = useState(0);
+  const [score, setScore] = useState(0);
+  const [time, setTime] = useState(0);
 
   // const navigate = useNavigate();
   // const dispatch = useAppDispatch();
@@ -40,6 +43,7 @@ export const GameScreen: FC = () => {
       updatedSelectedCards[id] = card;
     }
 
+    setMoves(moves + 1);
     setSelectedCards(updatedSelectedCards);
   };
 
@@ -61,6 +65,7 @@ export const GameScreen: FC = () => {
         if (cardOne!.src === cardTwo!.src) {
           updatedCards[cardOne!.id]!.isGuessedCorrect = true;
           updatedCards[cardTwo!.id]!.isGuessedCorrect = true;
+          setScore(score + 1);
           // If not - unflip the cards
         } else {
           updatedCards[cardOne!.id]!.flipped = false;
@@ -80,6 +85,7 @@ export const GameScreen: FC = () => {
       const endpoint = `${BASE_ROUTES.API}${BASE_ROUTES.GAME}${GAME_ROUTES.START_GAME}`;
       try {
         const res = await httpClient.post(endpoint, { level });
+
         const {
           data: { data: cards },
         } = res;
@@ -89,7 +95,16 @@ export const GameScreen: FC = () => {
         console.error(err);
       }
     };
+    // Fetch cards array from server
     fetchCardsArray();
+
+    // Create timer
+    const interval = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const renderCards = () => {
@@ -119,14 +134,9 @@ export const GameScreen: FC = () => {
     <Wrapper withHeader>
       <Styled.Header>
         <Styled.LeftSideWrapper>
-          <Styled.LeftSideText>
-            <Typography>Score: BLA</Typography>
-            <Typography>Time: BLA</Typography>
-            <Typography>Moves: BLA</Typography>
-          </Styled.LeftSideText>
-          <div>
-            <Button>bla</Button>
-          </div>
+          <GameStats moves={moves} score={score} time={`${time}s`} />
+
+          <Button>bla</Button>
         </Styled.LeftSideWrapper>
       </Styled.Header>
 

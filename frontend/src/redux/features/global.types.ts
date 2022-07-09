@@ -7,4 +7,5 @@ export enum Level {
 export interface GlobalState {
   nickname: string;
   level: Level;
+  loading: boolean;
 }

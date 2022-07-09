@@ -2,7 +2,9 @@ import { FC, useEffect, useState } from "react";
 import * as Styled from "./GameScreen.styles";
 import { Wrapper } from "../../components/Wrapper";
 import { Button } from "../../components/Button";
-// import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch } from "../../redux/hooks";
+import { globalLoading } from "../../redux/features/global";
+
 // import { useNavigate } from "react-router-dom";
 import { Card, ICard, CardsObject } from "../../components/Card";
 import { httpClient } from "../../api/axios";
@@ -20,7 +22,7 @@ export const GameScreen: FC = () => {
   const [time, setTime] = useState(0);
 
   // const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const setCardsHandler = (card: ICard) => {
     const updatedCards = { ...cards };
@@ -82,6 +84,7 @@ export const GameScreen: FC = () => {
 
   useEffect(() => {
     const fetchCardsArray = async () => {
+      dispatch(globalLoading(true));
       const endpoint = `${BASE_ROUTES.API}${BASE_ROUTES.GAME}${GAME_ROUTES.START_GAME}`;
       try {
         const res = await httpClient.post(endpoint, { level });
@@ -91,6 +94,7 @@ export const GameScreen: FC = () => {
         } = res;
         console.log("cards", cards);
         setCards(cards);
+        dispatch(globalLoading(false));
       } catch (err) {
         console.error(err);
       }
@@ -136,7 +140,7 @@ export const GameScreen: FC = () => {
         <Styled.LeftSideWrapper>
           <GameStats moves={moves} score={score} time={`${time}s`} />
 
-          <Button>bla</Button>
+          <Button>Reset</Button>
         </Styled.LeftSideWrapper>
       </Styled.Header>
 

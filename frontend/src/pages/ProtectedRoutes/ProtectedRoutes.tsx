@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from "react-router";
+import { LoadSpinner } from "../../components/LoadSpinner";
 import { NavigateBack } from "../../components/NavigateBack";
 import { FRONTEND_ROUTES } from "../../consts";
 import { useAppSelector } from "../../redux/hooks";
@@ -8,14 +9,25 @@ const useAuth = () => {
   return user.length > 0;
 };
 
-export const ProtectedRoutes = () => {
-  const isAuth = useAuth();
-  return isAuth ? renderPage() : <Navigate to={FRONTEND_ROUTES.ROOT} />;
+const useLoading = () => {
+  const isLoading = useAppSelector((state) => state.global.loading);
+  return isLoading;
 };
 
-const renderPage = () => {
+export const ProtectedRoutes = () => {
+  const isLoading = useLoading();
+  const isAuth = useAuth();
+  return isAuth ? (
+    renderPage(isLoading)
+  ) : (
+    <Navigate to={FRONTEND_ROUTES.ROOT} />
+  );
+};
+
+const renderPage = (isLoading: boolean) => {
   return (
     <>
+      {isLoading && <LoadSpinner />}
       <NavigateBack />
       <Outlet />
     </>

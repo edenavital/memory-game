@@ -14,59 +14,32 @@ export class StartGame extends BaseGame {
   }
 
   public generateGame = async () => {
-    return {
-      "0bfb0bdc-5421-47a7-ac85-3e7df2cd236b": {
-        id: "0bfb0bdc-5421-47a7-ac85-3e7df2cd236b",
-        // value: "11423493",
-        src: "https://images.pexels.com/photos/11423493/pexels-photo-11423493.jpeg",
-        flipped: false,
-      },
-      "ec738d2e-b638-4c61-abde-938d1f024b52": {
-        id: "ec738d2e-b638-4c61-abde-938d1f024b52",
-        // value: "11299778",
-        src: "https://images.pexels.com/photos/11299778/pexels-photo-11299778.jpeg",
-        flipped: false,
-      },
-      "1eb0f7a8-2c98-4691-803c-411034c32b9a": {
-        id: "1eb0f7a8-2c98-4691-803c-411034c32b9a",
-        // value: "11423493",
-        src: "https://images.pexels.com/photos/11423493/pexels-photo-11423493.jpeg",
-        flipped: false,
-      },
-      "e20cd46a-f0a2-47f9-b8e4-85c8344968db": {
-        id: "e20cd46a-f0a2-47f9-b8e4-85c8344968db",
-        // value: "11299778",
-        src: "https://images.pexels.com/photos/11299778/pexels-photo-11299778.jpeg",
-        flipped: false,
-      },
-    };
-
-    return [
-      {
-        id: "0bfb0bdc-5421-47a7-ac85-3e7df2cd236b",
-        value: "11423493",
-        src: "https://images.pexels.com/photos/11423493/pexels-photo-11423493.jpeg",
-        flipped: null,
-      },
-      {
-        id: "ec738d2e-b638-4c61-abde-938d1f024b52",
-        value: "11299778",
-        src: "https://images.pexels.com/photos/11299778/pexels-photo-11299778.jpeg",
-        flipped: null,
-      },
-      {
-        id: "1eb0f7a8-2c98-4691-803c-411034c32b9a",
-        value: "11423493",
-        src: "https://images.pexels.com/photos/11423493/pexels-photo-11423493.jpeg",
-        flipped: null,
-      },
-      {
-        id: "e20cd46a-f0a2-47f9-b8e4-85c8344968db",
-        value: "11299778",
-        src: "https://images.pexels.com/photos/11299778/pexels-photo-11299778.jpeg",
-        flipped: null,
-      },
-    ];
+    // return {
+    //   "0bfb0bdc-5421-47a7-ac85-3e7df2cd236b": {
+    //     id: "0bfb0bdc-5421-47a7-ac85-3e7df2cd236b",
+    //     // value: "11423493",
+    //     src: "https://images.pexels.com/photos/11423493/pexels-photo-11423493.jpeg",
+    //     flipped: false,
+    //   },
+    //   "ec738d2e-b638-4c61-abde-938d1f024b52": {
+    //     id: "ec738d2e-b638-4c61-abde-938d1f024b52",
+    //     // value: "11299778",
+    //     src: "https://images.pexels.com/photos/11299778/pexels-photo-11299778.jpeg",
+    //     flipped: false,
+    //   },
+    //   "1eb0f7a8-2c98-4691-803c-411034c32b9a": {
+    //     id: "1eb0f7a8-2c98-4691-803c-411034c32b9a",
+    //     // value: "11423493",
+    //     src: "https://images.pexels.com/photos/11423493/pexels-photo-11423493.jpeg",
+    //     flipped: false,
+    //   },
+    //   "e20cd46a-f0a2-47f9-b8e4-85c8344968db": {
+    //     id: "e20cd46a-f0a2-47f9-b8e4-85c8344968db",
+    //     // value: "11299778",
+    //     src: "https://images.pexels.com/photos/11299778/pexels-photo-11299778.jpeg",
+    //     flipped: false,
+    //   },
+    // };
 
     const promiseCollection: any[] = [];
 
@@ -75,8 +48,20 @@ export class StartGame extends BaseGame {
       promiseCollection.push(this.generateSingleCard());
     });
 
+    //TODO: Think about a better approach... maybe we can make it more efficient
     const cards = await Promise.all(promiseCollection);
-    return this.shuffleCardsArr(cards.flat());
+    const shuffledArr = this.shuffleCardsArr(cards.flat());
+    const cardsObject = this.reduceToObjectForamt(shuffledArr);
+    return cardsObject;
+  };
+
+  private reduceToObjectForamt = (shuffledArr: any) => {
+    const obj = shuffledArr.reduce((acc: any, curr: any) => {
+      const { id } = curr;
+      return { ...acc, [id]: curr };
+    }, {});
+
+    return obj;
   };
 
   private generateSingleCard = async () => {

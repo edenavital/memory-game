@@ -5,7 +5,9 @@
   "scripts": {
     "install": "cd backend && npm i && cd .. && cd frontend && npm i && cd ..",
     "start:server": "cd backend && npm run start",
+    "start:server:prod": "cd backend && npm run prod",
     "start:frontend": "cd frontend && npm run start",
+    "start:dev": "concurrently \"npm run start:prod\" \"npm run start:frontend\"",
     "start": "concurrently \"npm run start:server\" \"npm run start:frontend\"",
     "build": "cd backend && npm run build && cd .. && cd frontend && npm run build"
   },

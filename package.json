@@ -6,7 +6,8 @@
     "install": "cd backend && npm i && cd .. && cd frontend && npm i && cd ..",
     "start:server": "cd backend && npm run start",
     "start:frontend": "cd frontend && npm run start",
-    "start": "concurrently \"npm run start:server\" \"npm run start:frontend\""
+    "start": "concurrently \"npm run start:server\" \"npm run start:frontend\"",
+    "build": "cd backend && npm run build && cd .. && cd frontend && npm run build"
   },
   "author": "",
   "license": "ISC",

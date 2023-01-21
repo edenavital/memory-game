@@ -34,7 +34,7 @@ const filePath = path.join(__dirname, "../../", "frontend/build");
 console.log("filePath", filePath);
 app.use(express.static(path.join(__dirname, "../../", "frontend/build")));
 
-app.all("*", (req: Request, res: Response) => {
+app.get("*", (req: Request, res: Response) => {
   const filePath = path.join(__dirname, "../..", "frontend/build/index.html");
   console.log("filePath", filePath);
   res.sendFile(filePath, (err: Error) => res.status(500).send(err));

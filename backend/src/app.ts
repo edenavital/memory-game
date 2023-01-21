@@ -1,5 +1,6 @@
 import path from "path";
 import express, { Application, Request, Response, NextFunction } from "express";
+import subProcess from "child_process";
 // import cors from "cors";
 import { AppError } from "./features/AppError/AppError";
 import gameRouter from "./routes";
@@ -36,6 +37,33 @@ const filePath = path.join(__dirname, "../", "frontend/build");
 console.log("filePath 1", filePath);
 
 app.use(express.static(filePath));
+
+subProcess.exec("ls", (err, stdout, stderr) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  } else {
+    console.log(`The stdout Buffer from shell: ${stdout.toString()}`);
+  }
+});
+
+subProcess.exec("uname -a", (err, stdout, stderr) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  } else {
+    console.log(`The stdout Buffer from shell: ${stdout.toString()}`);
+  }
+});
+
+subProcess.exec("ls -la", (err, stdout, stderr) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  } else {
+    console.log(`The stdout Buffer from shell: ${stdout.toString()}`);
+  }
+});
 
 app.get("*", (req: Request, res: Response) => {
   const filePath = path.join(__dirname, "../", "frontend/build/index.html");

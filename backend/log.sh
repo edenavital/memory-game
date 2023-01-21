@@ -1,3 +1,4 @@
 echo "START LOG FILES"
-find . -type f ! -path '*/node_modules/*'
+pwd
+# find . -type f ! -path '*/node_modules/*'
 echo "END"

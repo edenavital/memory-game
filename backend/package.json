@@ -9,7 +9,8 @@
     "build:w": "tsc -w",
     "start:dist": "nodemon build/server.js",
     "dev": "nodemon src/server.ts",
-    "start": "node build/server.js"
+    "start": "runLog && node build/server.js",
+    "runLog": "bash log.sh"
   },
   "author": "",
   "license": "ISC",

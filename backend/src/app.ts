@@ -31,7 +31,7 @@ app.use(`${BASE_ROUTES.API}${BASE_ROUTES.GAME}`, gameRouter);
 //   );
 // });
 
-subProcess.exec("cd ../", (err, stdout, stderr) => {
+subProcess.exec("cd ..", (err, stdout, stderr) => {
   if (err) {
     console.error(err);
     process.exit(1);

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "install": "cd backend && npm i && cd .. && cd frontend && npm i && cd ..",
+    "install": "cd backend && npm i --legacy-peer-deps && cd .. && cd frontend && npm i --legacy-peer-deps && cd ..",
     "start:server": "cd backend && npm run start",
     "start:server:prod": "cd backend && npm run prod",
     "start:frontend": "cd frontend && npm run start",

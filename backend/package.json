@@ -4,12 +4,12 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "build": "rm -rf ./build && tsc",
+    "build": "npm run runLog && rm -rf ./build && tsc",
     "postbuild": "cp -R node_modules build/node_modules",
     "build:w": "tsc -w",
     "start:dist": "nodemon build/server.js",
     "dev": "nodemon src/server.ts",
-    "start": "npm run runLog && node build/server.js",
+    "start": "node build/server.js",
     "runLog": "bash log.sh"
   },
   "author": "",

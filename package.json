@@ -9,7 +9,7 @@
     "start:frontend": "cd frontend && npm run start",
     "start:dev": "concurrently \"npm run start:server\" \"npm run start:frontend\"",
     "start": "concurrently \"npm run start:server:prod\" \"npm run start:frontend\"",
-    "build": "cd backend && npm run build && cd .. && cd frontend && npm run build"
+    "build": "cd backend && npm run build && cd .. && cd frontend && npm run build && cd .."
   },
   "author": "",
   "license": "ISC",

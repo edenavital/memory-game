@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "build": "rm -rf ./build && tsc",
+    "postbuild": "cp package*.json build && cd build && npm ci --production",
     "build:w": "tsc -w",
     "start:dist": "nodemon build/server.js",
     "start": "nodemon src/server.ts",

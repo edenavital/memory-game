@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { logger } from "../logger";
+import { app } from "../../app";
 
 dotenv.config();
 
@@ -24,6 +25,12 @@ export const initMongo = () => {
   mongoose.connect(generateMongoUri(), mongoOptions);
 
   const db = mongoose.connection;
+
   db.on("error", (err) => logger.error("MONGO ERROR", err));
-  db.once("open", () => logger.info("Connected successfully to MongoDB"));
+  db.once("open", () => {
+    app.listen(5000, () => {
+      logger.info("Connected successfully to MongoDB");
+      logger.info(`Server is running on port ${5000}`);
+    });
+  });
 };

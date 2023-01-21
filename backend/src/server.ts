@@ -20,7 +20,8 @@ process
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, async () => {
-  await initUtils();
-  logger.info(`Server is running on port ${PORT}`);
-});
+initUtils();
+
+// app.listen(PORT, async () => {
+//   logger.info(`Server is running on port ${PORT}`);
+// });

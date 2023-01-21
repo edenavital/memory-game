@@ -29,6 +29,7 @@ app.use(`${BASE_ROUTES.API}${BASE_ROUTES.GAME}`, gameRouter);
 //     new AppError(`Can't find ${req.originalUrl} on this server`, 404)
 //   );
 // });
+console.log("__dirname", __dirname);
 const filePath = path.join(__dirname, "../../", "frontend/build");
 console.log("filePath", filePath);
 app.use(express.static(path.join(__dirname, "../../", "frontend/build")));

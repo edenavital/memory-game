@@ -32,10 +32,11 @@ app.use(`${BASE_ROUTES.API}${BASE_ROUTES.GAME}`, gameRouter);
 console.log("__dirname", __dirname);
 const filePath = path.join(__dirname, "../../", "frontend/build");
 console.log("filePath", filePath);
-app.use(express.static(path.join(__dirname, "../../", "frontend/build")));
+// app.use(express.static(path.join(__dirname, "../../", "frontend/build")));
+app.use(express.static(path.join(__dirname, "/frontend/build")));
 
 app.get("*", (req: Request, res: Response) => {
-  const filePath = path.join(__dirname, "../..", "frontend/build/index.html");
+  const filePath = path.join(__dirname + "/frontend/build/index.html");
   console.log("filePath", filePath);
   res.sendFile(filePath, (err: Error) => res.status(500).send(err));
 });

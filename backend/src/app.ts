@@ -1,3 +1,4 @@
+import path from "path";
 import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { AppError } from "./features/AppError/AppError";
@@ -23,10 +24,18 @@ app.use(`${BASE_ROUTES.API}${BASE_ROUTES.GAME}`, gameRouter);
  * If the endpoint is not supported - we will return "Can't find url" AppError, otherwise - enter the errorHandler
  *  */
 
-app.all("*", (req: Request, res: Response, next: NextFunction) => {
-  return next(
-    new AppError(`Can't find ${req.originalUrl} on this server`, 404)
-  );
+// app.all("*", (req: Request, res: Response, next: NextFunction) => {
+//   return next(
+//     new AppError(`Can't find ${req.originalUrl} on this server`, 404)
+//   );
+// });
+
+app.use(express.static(path.join(__dirname, "../../", "frontend/build")));
+
+app.all("*", (req: Request, res: Response) => {
+  const filePath = path.join(__dirname, "../..", "frontend/build/index.html");
+  console.log("filePath", filePath);
+  res.sendFile(filePath, (err: Error) => res.status(500).send(err));
 });
 
 app.use(errorHandler);

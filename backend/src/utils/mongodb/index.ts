@@ -21,7 +21,6 @@ export const initMongo = () => {
     autoIndex: false,
     retryWrites: false,
   };
-
   mongoose.connect(generateMongoUri(), mongoOptions);
 
   const db = mongoose.connection;

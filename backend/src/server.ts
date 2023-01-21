@@ -1,4 +1,3 @@
-// import initUtils from '.'
 import { app } from "./app";
 import { logger } from "./utils";
 import * as dotenv from "dotenv";
@@ -15,12 +14,13 @@ process
    * before shutting down the process. - graceful shutdown
    *  */
   .on("uncaughtException", (err: Error) => {
+    logger.info("error,", err);
     logger.error("uncaughtException", err);
   });
 
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, async () => {
-  logger.info(`Server is running on port ${PORT}`);
   await initUtils();
+  logger.info(`Server is running on port ${PORT}`);
 });
